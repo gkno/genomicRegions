@@ -3,7 +3,7 @@
 DICT=$1
 WINDOW=$2
 SEQUENCES=$3
-KEEP=$4
+INVERT=$4
 
 # Function for checking if a value is in an array.
 array_contains () { 
@@ -22,9 +22,9 @@ array_contains () {
 }
 
 # Check if a file containing sequences for comparison has been
-# provided. If so, store the values in an array. If $KEEP is
-# 'true', only regions from these sequences in this file will be
-# output. If false, only sequences not prsesnt.
+# provided. If so, store the values in an array. If $INVERT is
+# 'false', only regions from these sequences in this file will be
+# output. If true, only sequences not prsesnt.
 declare -a SEQUENCE_ARRAY=()
 COUNT=0
 COMPARE=0
@@ -58,16 +58,16 @@ do
       array_contains SEQUENCE_ARRAY "$SEQUENCE" && IN=1 || IN=0
       if [ $IN -eq 1 ]
 
-      # If the sequence is present, check the value of $KEEP. If true, keep this sequence.
+      # If the sequence is present, check the value of $INVERT. If true, skip this sequence.
       then
-        if [[ $KEEP == 'false' ]]
+        if [[ $INVERT == 'true' ]]
         then
           USE_SEQUENCE=0
         fi
 
-      # If the sequence is not in the file, keep if $KEEP is set to 0.
+      # If the sequence is not in the file, keep if $INVERT is set to 0.
       else
-        if [[ $KEEP == 'true' ]]
+        if [[ $INVERT == 'false' ]]
         then
           USE_SEQUENCE=0
         fi
