@@ -60,14 +60,14 @@ do
 
       # If the sequence is present, check the value of $INVERT. If true, skip this sequence.
       then
-        if [[ $INVERT == 'true' ]]
+        if [[ $INVERT == 'true' || $INVERT == 'True' ]]
         then
           USE_SEQUENCE=0
         fi
 
       # If the sequence is not in the file, keep if $INVERT is set to 0.
       else
-        if [[ $INVERT == 'false' ]]
+        if [[ $INVERT == 'false' || $INVERT == 'False' ]]
         then
           USE_SEQUENCE=0
         fi
